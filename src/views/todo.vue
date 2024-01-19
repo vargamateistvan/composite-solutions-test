@@ -1,7 +1,9 @@
 <template>
-  <router-view />
+  <h1>TODO</h1>
 </template>
 
 <script>
 export default {};
 </script>
+
+<style></style>
