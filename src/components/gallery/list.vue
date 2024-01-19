@@ -6,31 +6,12 @@
         @showPicture="showPicture"
       ></gallery-item>
     </template>
-    <dialog ref="dialog">
-      <div class="gallery-show">
-        <input
-          v-show="currentPictureId !== 1"
-          class="gallery-button"
-          type="button"
-          value="<"
-          @click="lastPicture"
-        />
-        <img :src="currentPicture?.url" :alt="currentPicture?.title" />
-        <input
-          v-show="currentPictureId !== gallery.length"
-          class="gallery-button"
-          type="button"
-          value=">"
-          @click="nextPicture"
-        />
-      </div>
-    </dialog>
-    <!-- <gallery-dialog
+    <gallery-dialog
       :showDialog="showDialog"
       @closeDialog="closeDialog"
       :gallery="gallery"
       :currentPictureId="currentPictureId"
-    ></gallery-dialog> -->
+    ></gallery-dialog>
   </div>
 </template>
 
@@ -48,49 +29,25 @@ export default {
       showDialog: false,
     };
   },
-  computed: {
-    currentPicture() {
-      if (!this.currentPictureId) return;
-      return this.gallery.find(
-        (picture) => picture.id === this.currentPictureId
-      );
-    },
-  },
+
   methods: {
     async getGallery() {
       const { data } = await axios(
-        "https:jsonplaceholder.typicode.com/photos?_page=1&_limit=50"
+        "https://jsonplaceholder.typicode.com/photos?_page=1&_limit=50"
       );
 
       this.gallery = data;
     },
     showPicture(pictureId) {
       this.currentPictureId = pictureId;
-      this.$refs.dialog.showModal();
+      this.showDialog = true;
     },
     closeDialog() {
       this.showDialog = false;
     },
-    lastPicture() {
-      if (this.currentPictureId === 1) return;
-      --this.currentPictureId;
-    },
-    nextPicture() {
-      if (this.currentPictureId === this.gallery.length) return;
-      ++this.currentPictureId;
-    },
-    listenOutsideClick() {
-      const dialog = this.$refs.dialog;
-      dialog.addEventListener("click", ($event) => {
-        if ($event.target === dialog) {
-          dialog.close();
-        }
-      });
-    },
   },
   mounted() {
     this.getGallery();
-    this.listenOutsideClick();
   },
 };
 </script>

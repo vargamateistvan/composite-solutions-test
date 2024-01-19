@@ -31,5 +31,6 @@ export default {
 .gallery-item {
   width: 150px;
   height: 150px;
+  cursor: pointer;
 }
 </style>

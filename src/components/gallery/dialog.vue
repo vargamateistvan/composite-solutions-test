@@ -1,5 +1,5 @@
 <template>
-  <dialog ref="dialog">
+  <dialog ref="dialog" @keydown.right="nextPicture" @keydown.left="lastPicture">
     <div class="gallery-show">
       <input
         v-show="pictureId !== 1"
@@ -30,9 +30,8 @@ export default {
   watch: {
     showDialog: function (newVal) {
       if (newVal) {
+        this.pictureId = this.currentPictureId;
         this.$refs.dialog.showModal();
-      } else {
-        this.$emit("closeDialog");
       }
     },
   },
@@ -62,6 +61,7 @@ export default {
       dialog.addEventListener("click", ($event) => {
         if ($event.target === dialog) {
           dialog.close();
+          this.$emit("closeDialog");
         }
       });
     },
@@ -73,7 +73,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-dialog::backdrop {
-  background: rgba(0, 0, 0, 0.75);
+.gallery {
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.75);
+  }
+
+  &-show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &-button {
+    margin: 0 10px;
+    padding: 5px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 10px;
+  }
 }
 </style>
