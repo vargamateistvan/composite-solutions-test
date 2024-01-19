@@ -1,9 +1,11 @@
 <template>
-  <h1>Gallery</h1>
+  <gallery-list></gallery-list>
 </template>
 
 <script>
-export default {};
-</script>
+import galleryList from "../components/gallery/list.vue";
 
-<style></style>
+export default {
+  components: { galleryList },
+};
+</script>
