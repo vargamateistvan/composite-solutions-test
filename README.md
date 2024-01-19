@@ -6,8 +6,12 @@
 npm install
 ```
 
-## Run application
+## Run Application
 
 ```
 npm run dev
 ```
+
+## Live Demo
+
+https://vargamateistvan.github.io/composite-solutions-test/
